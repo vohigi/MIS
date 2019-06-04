@@ -1,0 +1,26 @@
+@model MIS.ViewModels.CreateUserViewModel;
+@{
+    ViewBag.Title = "Добавление пользователя";
+}
+<div class="form-container register-container column">
+  <form asp-action="Create" asp-controller="Users" class="column">
+    <div asp-validation-summary="All" class="text-danger"></div>
+      <div class="row">
+        <div class="input-group column">
+            <label asp-for="Email" class="register-label pointer">Email</label>
+            <input type="text" asp-for="Email" class="register-input corners line-height-fix" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group column">
+            <label asp-for="Password" class="register-label pointer">Пароль</label>
+            <input type="text" asp-for="Password" class="register-input corners line-height-fix" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-group column">
+            <input type="submit" value="Добавить" class="register-input corners line-height-fix" />
+        </div>
+      </div>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+﻿@model MIS.ViewModels.LoginViewModel;
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+@*@section Scripts
+    {
+        <script src="@Url.Content("~/js/loginValidation.js")"></script>
+        <script src="@Url.Content("~/js/http.js")"></script>
+    }*@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="~/css/main.css" />
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container login-container column">
+        <form id="login-form" asp-controller="Account" asp-action="Login">
+            <div id="error"></div>
+            <div class="column align">
+                <label for="login" class="login-label">Ваш логін</label>
+                <input type="text"
+                       asp-for="Email"
+                       id="login"
+                       class="register-input corners" />
+                <label for="password" class="login-label">Пароль</label>
+                <input type="password"
+                       asp-for="Password"
+                       id="password"
+                       class="register-input corners" />
+            </div>
+            <div class="button-container">
+                <button type="submit" class="login-button line-height-fix" id="login-btn">
+                    Логін
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- <script src="~/js/loginValidation.js"></script>
+    <script src="~/js/http.js"></script> -->
+</body>
+</html>

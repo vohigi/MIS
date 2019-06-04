@@ -1,0 +1,118 @@
+@model MIS.ViewModels.RegisterViewModel
+<!-- <h2>Регистрация нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div>
+        <label asp-for="PasswordConfirm"></label><br />
+        <input asp-for="PasswordConfirm" />
+        <span asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input type="submit" value="Регистрация" />
+    </div>
+</form> -->
+<main>
+      <h2>Registration</h2>
+      <div class="form-container register-container column">
+        <form class="column" method="post" asp-controller="Account" asp-action="Register" id="form">
+          <div id="error"></div>
+          <!-- <div class="row">
+            <div class="input-group column">
+              <label for="user-id" class="register-label pointer"
+                >Ім'я користувача</label
+              >
+              <input
+                type="text"
+                id="user-id"
+                class="register-input corners line-height-fix top-input"
+              />
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="input-group column">
+              <label for="email" class="register-label pointer"
+                >Електронна пошта:<span class="redstar">*</span></label
+              >
+              <input
+                type="email"
+                asp-for="Email"
+                id="email"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+            <div class="input-group column">
+              <label for="phone" class="register-label pointer"
+                >Телефон:<span class="redstar">*</span></label
+              >
+              <input
+                type="text"
+                asp-for="PhoneNumber"
+                id="phone"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group column">
+              <label for="password" class="register-label pointer"
+                >Пароль:<span class="redstar">*</span></label
+              >
+              <input
+                type="password"
+                asp-for="Password"
+                id="password"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+            <div class="input-group column">
+              <label for="second-password" class="register-label pointer"
+                >Повторіть пароль:<span class="redstar">*</span></label
+              >
+              <input
+                type="password"
+                asp-for="ConfirmPassword"
+                id="second-password"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+          </div>
+          <!-- LastName  MiddleName  FirstName  TaxID  Phone  Email  BirthDate -->
+
+          <div class="row">
+            <div class="input-group button-container  column">
+              <button
+                type="submit"
+                id="register-btn"
+                class="register-button corners line-height-fix"
+              >
+                Зареєструватися
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="success-declaration" id="success-form">
+        <div class="black-screen"></div>
+        <form class="success-form column">
+          <div class="information">
+            Декларація створена успішно
+          </div>
+          <div class="confirm">
+            <button type="button" id="submit-declaration">OK</button>
+          </div>
+        </form>
+      </div>
+      <script src="~/js/registration.js"></script>
+      <script src="~/js/http.js"></script>
+    </main>
