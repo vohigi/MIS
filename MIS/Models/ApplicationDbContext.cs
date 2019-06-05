@@ -13,7 +13,7 @@ namespace MIS.Models
 
     }
     public virtual DbSet<Declarations> Declarations { get; set; }
-    public virtual DbSet<Employees> Employees { get; set; }
+    //public virtual DbSet<Employees> Employees { get; set; }
     public virtual DbSet<Msps> Msps { get; set; }
     public DbSet<IdentityRole> IdentityRole { get; set; }
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -29,9 +29,33 @@ namespace MIS.Models
       // UserId column in Customers table will be foreign key
       modelBuilder.Entity<User>(entity =>
       {
-        entity.HasOne(m => m.Employees)
-        .WithOne(b => b.User)
-        .HasForeignKey<Employees>(b => b.EmployeeId);
+        entity.HasIndex(e => e.MspId)
+          .HasName("MspId");
+
+        entity.Property(e => e.BirthDate).HasColumnType("date");
+
+        entity.Property(e => e.FirstName)
+                  .HasColumnType("varchar(30)");
+
+        entity.Property(e => e.Gender)
+                  .HasColumnType("varchar(10)");
+
+        entity.Property(e => e.LastName)
+                  .HasColumnType("varchar(30)");
+
+        entity.Property(e => e.MiddleName)
+                  .HasColumnType("varchar(30)");
+
+        entity.Property(e => e.MspId).HasColumnType("int(11)");
+
+        entity.Property(e => e.TaxId)
+                  .HasColumnName("TaxId")
+                  .HasColumnType("varchar(10)");
+
+        entity.HasOne(d => d.Msp)
+                  .WithMany(p => p.User)
+                  .HasForeignKey(d => d.MspId)
+                  .OnDelete(DeleteBehavior.SetNull);
         entity.HasOne(m => m.Declarations)
                 .WithOne(b => b.User)
                 .HasForeignKey<Declarations>(b => b.UserId);
@@ -100,63 +124,63 @@ namespace MIS.Models
         entity.Property(e => e.UserId).HasColumnType("varchar(250)");
 
         entity.HasOne(d => d.Employee)
-                  .WithMany(p => p.Declarations)
+                  .WithMany(p => p.DeclarationsE)
                   .HasForeignKey(d => d.EmployeeId)
                   .OnDelete(DeleteBehavior.SetNull)
                   .HasConstraintName("declarations_ibfk_1");
       });
 
-      modelBuilder.Entity<Employees>(entity =>
-      {
-        entity.HasKey(e => e.EmployeeId)
-                  .HasName("PRIMARY");
+      // modelBuilder.Entity<Employees>(entity =>
+      // {
+      //   entity.HasKey(e => e.EmployeeId)
+      //             .HasName("PRIMARY");
 
-        entity.ToTable("employees");
+      //   entity.ToTable("employees");
 
-        entity.HasIndex(e => e.MspId)
-                  .HasName("MspId");
+      //   entity.HasIndex(e => e.MspId)
+      //             .HasName("MspId");
 
-        entity.Property(e => e.EmployeeId).HasColumnType("varchar(250)");
+      //   entity.Property(e => e.EmployeeId).HasColumnType("varchar(250)");
 
-        entity.Property(e => e.BirthDate).HasColumnType("date");
+      //   entity.Property(e => e.BirthDate).HasColumnType("date");
 
-        entity.Property(e => e.Email)
-                  .IsRequired()
-                  .HasColumnType("varchar(16)");
+      //   entity.Property(e => e.Email)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(16)");
 
-        entity.Property(e => e.FirstName)
-                  .IsRequired()
-                  .HasColumnType("varchar(30)");
+      //   entity.Property(e => e.FirstName)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(30)");
 
-        entity.Property(e => e.Gender)
-                  .IsRequired()
-                  .HasColumnType("varchar(10)");
+      //   entity.Property(e => e.Gender)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(10)");
 
-        entity.Property(e => e.LastName)
-                  .IsRequired()
-                  .HasColumnType("varchar(30)");
+      //   entity.Property(e => e.LastName)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(30)");
 
-        entity.Property(e => e.MiddleName)
-                  .IsRequired()
-                  .HasColumnType("varchar(30)");
+      //   entity.Property(e => e.MiddleName)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(30)");
 
-        entity.Property(e => e.MspId).HasColumnType("int(11)");
+      //   entity.Property(e => e.MspId).HasColumnType("int(11)");
 
-        entity.Property(e => e.Phone)
-                  .IsRequired()
-                  .HasColumnType("varchar(16)");
+      //   entity.Property(e => e.Phone)
+      //             .IsRequired()
+      //             .HasColumnType("varchar(16)");
 
-        entity.Property(e => e.TaxId)
-                  .IsRequired()
-                  .HasColumnName("TaxID")
-                  .HasColumnType("varchar(10)");
+      //   entity.Property(e => e.TaxId)
+      //             .IsRequired()
+      //             .HasColumnName("TaxID")
+      //             .HasColumnType("varchar(10)");
 
-        entity.HasOne(d => d.Msp)
-                  .WithMany(p => p.Employees)
-                  .HasForeignKey(d => d.MspId)
-                  .OnDelete(DeleteBehavior.SetNull)
-                  .HasConstraintName("employees_ibfk_1");
-      });
+      //   entity.HasOne(d => d.Msp)
+      //             .WithMany(p => p.Employees)
+      //             .HasForeignKey(d => d.MspId)
+      //             .OnDelete(DeleteBehavior.SetNull)
+      //             .HasConstraintName("employees_ibfk_1");
+      // });
 
       modelBuilder.Entity<Msps>(entity =>
       {
