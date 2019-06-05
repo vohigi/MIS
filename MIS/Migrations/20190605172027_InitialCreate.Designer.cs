@@ -9,7 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MIS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
+<<<<<<< HEAD:MIS/Migrations/20190605172027_InitialCreate.Designer.cs
     [Migration("20190605172027_InitialCreate")]
+=======
+    [Migration("20190604185848_InitialCreate")]
+>>>>>>> 683987ecf0ae01a3d379b024acae022674b588c8:MIS/Migrations/20190604185848_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
