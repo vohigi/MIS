@@ -22,7 +22,6 @@ namespace MIS.Controllers
       _roleManager = roleManager;
       _userManager = userManager;
     }
-
     public IActionResult Index() => View(_userManager.Users.ToList());
 
     public IActionResult Create() => View();

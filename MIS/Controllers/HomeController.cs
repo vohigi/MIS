@@ -9,17 +9,19 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MIS.Controllers
 {
-  public class HomeController : Controller
-  {
-
-    public IActionResult Index()
+    public class HomeController : Controller
     {
-      return View();
-    }
 
-    public IActionResult Privacy()
-    {
-      return View();
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult AdminPage() => View();
+        public IActionResult OwnerPage() => View();
     }
-  }
 }
