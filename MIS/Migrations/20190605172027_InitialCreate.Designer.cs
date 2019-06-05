@@ -8,352 +8,350 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MIS.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-<<<<<<< HEAD:MIS/Migrations/20190605172027_InitialCreate.Designer.cs
-    [Migration("20190605172027_InitialCreate")]
-=======
-    [Migration("20190604185848_InitialCreate")]
->>>>>>> 683987ecf0ae01a3d379b024acae022674b588c8:MIS/Migrations/20190604185848_InitialCreate.Designer.cs
-    partial class InitialCreate
+  [DbContext(typeof(ApplicationDbContext))]
+  [Migration("20190605172027_InitialCreate")]
+
+
+  partial class InitialCreate
+  {
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+      modelBuilder
+          .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+          .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("MIS.Models.Declarations", b =>
-                {
-                    b.Property<int>("DeclarationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)");
+      modelBuilder.Entity("MIS.Models.Declarations", b =>
+          {
+            b.Property<int>("DeclarationId")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int(11)");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("varchar(48)");
+            b.Property<string>("Address")
+                      .IsRequired()
+                      .HasColumnType("varchar(48)");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("date");
+            b.Property<DateTime>("BirthDate")
+                      .HasColumnType("date");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("date");
+            b.Property<DateTime>("CreateDate")
+                      .HasColumnType("date");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(24)");
+            b.Property<string>("Email")
+                      .IsRequired()
+                      .HasColumnType("varchar(24)");
 
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(250)");
+            b.Property<string>("EmployeeId")
+                      .HasColumnType("varchar(250)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("varchar(24)");
+            b.Property<string>("FirstName")
+                      .IsRequired()
+                      .HasColumnType("varchar(24)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("varchar(16)");
+            b.Property<string>("Gender")
+                      .IsRequired()
+                      .HasColumnType("varchar(16)");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("varchar(24)");
+            b.Property<string>("LastName")
+                      .IsRequired()
+                      .HasColumnType("varchar(24)");
 
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("varchar(24)");
+            b.Property<string>("MiddleName")
+                      .IsRequired()
+                      .HasColumnType("varchar(24)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("varchar(16)");
+            b.Property<string>("Phone")
+                      .IsRequired()
+                      .HasColumnType("varchar(16)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(250)");
+            b.Property<string>("UserId")
+                      .HasColumnType("varchar(250)");
 
-                    b.HasKey("DeclarationId")
-                        .HasName("PRIMARY");
+            b.HasKey("DeclarationId")
+                      .HasName("PRIMARY");
 
-                    b.HasIndex("EmployeeId")
-                        .HasName("EmployeeId");
+            b.HasIndex("EmployeeId")
+                      .HasName("EmployeeId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasName("UserId");
+            b.HasIndex("UserId")
+                      .IsUnique()
+                      .HasName("UserId");
 
-                    b.ToTable("declarations");
-                });
+            b.ToTable("declarations");
+          });
 
-            modelBuilder.Entity("MIS.Models.Msps", b =>
-                {
-                    b.Property<int>("MspId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int(11)");
+      modelBuilder.Entity("MIS.Models.Msps", b =>
+          {
+            b.Property<int>("MspId")
+                      .ValueGeneratedOnAdd()
+                      .HasColumnType("int(11)");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("varchar(40)");
+            b.Property<string>("Address")
+                      .IsRequired()
+                      .HasColumnType("varchar(40)");
 
-                    b.Property<string>("Edrpou")
-                        .IsRequired()
-                        .HasColumnType("varchar(10)");
+            b.Property<string>("Edrpou")
+                      .IsRequired()
+                      .HasColumnType("varchar(10)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(40)");
+            b.Property<string>("Name")
+                      .IsRequired()
+                      .HasColumnType("varchar(40)");
 
-                    b.HasKey("MspId")
-                        .HasName("PRIMARY");
+            b.HasKey("MspId")
+                      .HasName("PRIMARY");
 
-                    b.ToTable("msps");
-                });
+            b.ToTable("msps");
+          });
 
-            modelBuilder.Entity("MIS.Models.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("MIS.Models.User", b =>
+          {
+            b.Property<string>("Id")
+                      .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccessFailedCount");
+            b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("date");
+            b.Property<DateTime>("BirthDate")
+                      .HasColumnType("date");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken();
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(255);
+            b.Property<string>("Email")
+                      .HasMaxLength(255);
 
-                    b.Property<bool>("EmailConfirmed");
+            b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("varchar(30)");
+            b.Property<string>("FirstName")
+                      .HasColumnType("varchar(30)");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("varchar(10)");
+            b.Property<string>("Gender")
+                      .HasColumnType("varchar(10)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("varchar(30)");
+            b.Property<string>("LastName")
+                      .HasColumnType("varchar(30)");
 
-                    b.Property<bool>("LockoutEnabled");
+            b.Property<bool>("LockoutEnabled");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+            b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("MiddleName")
-                        .HasColumnType("varchar(30)");
+            b.Property<string>("MiddleName")
+                      .HasColumnType("varchar(30)");
 
-                    b.Property<int?>("MspId")
-                        .HasColumnType("int(11)");
+            b.Property<int?>("MspId")
+                      .HasColumnType("int(11)");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(255);
+            b.Property<string>("NormalizedEmail")
+                      .HasMaxLength(255);
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(255);
+            b.Property<string>("NormalizedUserName")
+                      .HasMaxLength(255);
 
-                    b.Property<string>("PasswordHash");
+            b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNumber");
+            b.Property<string>("PhoneNumber");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+            b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("SecurityStamp");
+            b.Property<string>("SecurityStamp");
 
-                    b.Property<string>("TaxId")
-                        .HasColumnName("TaxId")
-                        .HasColumnType("varchar(10)");
+            b.Property<string>("TaxId")
+                      .HasColumnName("TaxId")
+                      .HasColumnType("varchar(10)");
 
-                    b.Property<bool>("TwoFactorEnabled");
+            b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("UserName")
-                        .HasMaxLength(255);
+            b.Property<string>("UserName")
+                      .HasMaxLength(255);
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("MspId")
-                        .HasName("MspId");
+            b.HasIndex("MspId")
+                      .HasName("MspId");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+            b.HasIndex("NormalizedEmail")
+                      .HasName("EmailIndex");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
+            b.HasIndex("NormalizedUserName")
+                      .IsUnique()
+                      .HasName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
-                });
+            b.ToTable("AspNetUsers");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+          {
+            b.Property<string>("Id")
+                      .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+            b.Property<string>("ConcurrencyStamp")
+                      .IsConcurrencyToken();
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+            b.Property<string>("Name")
+                      .HasMaxLength(128);
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(128);
+            b.Property<string>("NormalizedName")
+                      .HasMaxLength(128);
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex");
+            b.HasIndex("NormalizedName")
+                      .IsUnique()
+                      .HasName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
-                });
+            b.ToTable("AspNetRoles");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClaimType");
+            b.Property<string>("ClaimType");
 
-                    b.Property<string>("ClaimValue");
+            b.Property<string>("ClaimValue");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired();
+            b.Property<string>("RoleId")
+                      .IsRequired();
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+            b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
-                });
+            b.ToTable("AspNetRoleClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.Property<int>("Id")
+                      .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ClaimType");
+            b.Property<string>("ClaimType");
 
-                    b.Property<string>("ClaimValue");
+            b.Property<string>("ClaimValue");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+            b.Property<string>("UserId")
+                      .IsRequired();
 
-                    b.HasKey("Id");
+            b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+            b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
-                });
+            b.ToTable("AspNetUserClaims");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey");
+            b.Property<string>("ProviderKey");
 
-                    b.Property<string>("ProviderDisplayName");
+            b.Property<string>("ProviderDisplayName");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+            b.Property<string>("UserId")
+                      .IsRequired();
 
-                    b.HasKey("LoginProvider", "ProviderKey");
+            b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
+            b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
-                });
+            b.ToTable("AspNetUserLogins");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.Property<string>("UserId");
 
-                    b.Property<string>("RoleId");
+            b.Property<string>("RoleId");
 
-                    b.HasKey("UserId", "RoleId");
+            b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId");
+            b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
-                });
+            b.ToTable("AspNetUserRoles");
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId");
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+            b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name");
+            b.Property<string>("Name");
 
-                    b.Property<string>("Value");
+            b.Property<string>("Value");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+            b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
-                });
+            b.ToTable("AspNetUserTokens");
+          });
 
-            modelBuilder.Entity("MIS.Models.Declarations", b =>
-                {
-                    b.HasOne("MIS.Models.User", "Employee")
-                        .WithMany("DeclarationsE")
-                        .HasForeignKey("EmployeeId")
-                        .HasConstraintName("declarations_ibfk_1")
-                        .OnDelete(DeleteBehavior.SetNull);
+      modelBuilder.Entity("MIS.Models.Declarations", b =>
+          {
+            b.HasOne("MIS.Models.User", "Employee")
+                      .WithMany("DeclarationsE")
+                      .HasForeignKey("EmployeeId")
+                      .HasConstraintName("declarations_ibfk_1")
+                      .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("MIS.Models.User", "User")
-                        .WithOne("Declarations")
-                        .HasForeignKey("MIS.Models.Declarations", "UserId");
-                });
+            b.HasOne("MIS.Models.User", "User")
+                      .WithOne("Declarations")
+                      .HasForeignKey("MIS.Models.Declarations", "UserId");
+          });
 
-            modelBuilder.Entity("MIS.Models.User", b =>
-                {
-                    b.HasOne("MIS.Models.Msps", "Msp")
-                        .WithMany("User")
-                        .HasForeignKey("MspId")
-                        .OnDelete(DeleteBehavior.SetNull);
-                });
+      modelBuilder.Entity("MIS.Models.User", b =>
+          {
+            b.HasOne("MIS.Models.Msps", "Msp")
+                      .WithMany("User")
+                      .HasForeignKey("MspId")
+                      .OnDelete(DeleteBehavior.SetNull);
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade);
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("MIS.Models.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+          {
+            b.HasOne("MIS.Models.User")
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade);
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("MIS.Models.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+          {
+            b.HasOne("MIS.Models.User")
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade);
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+          {
+            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                      .WithMany()
+                      .HasForeignKey("RoleId")
+                      .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("MIS.Models.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+            b.HasOne("MIS.Models.User")
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade);
+          });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("MIS.Models.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+      modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+          {
+            b.HasOne("MIS.Models.User")
+                      .WithMany()
+                      .HasForeignKey("UserId")
+                      .OnDelete(DeleteBehavior.Cascade);
+          });
 #pragma warning restore 612, 618
-        }
     }
+  }
 }
