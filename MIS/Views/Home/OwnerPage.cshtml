@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "OwnerPage";
 }
-
+@if (!@User.IsInRole("admin")) {
 <main>
     <div class="owner-info"></div>
     <div id="create-msp">
@@ -213,3 +213,4 @@
     </div>
     <script src="~/js/ownerDoctor.js"></script>
 </main>
+}

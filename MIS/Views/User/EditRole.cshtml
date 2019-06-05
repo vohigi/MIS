@@ -1,9 +1,9 @@
 @using Microsoft.AspNetCore.Identity
 @model MIS.ViewModels.ChangeRoleViewModel;
- 
+ <main>
 <h2>Изменение ролей для пользователя @Model.UserEmail</h2>
  
-<form asp-action="Edit" method="post">
+<form asp-action="EditRole" method="post">
     <input type="hidden" name="userId" value="@Model.UserId" />
     <div class="form-group">
         @foreach (IdentityRole role in Model.AllRoles)
@@ -14,3 +14,4 @@
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
+</main>

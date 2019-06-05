@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Редактирование пользователя";
 }
+<main>
 <form asp-action="Edit" asp-controller="Users">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -15,3 +16,4 @@
         <input type="submit" value="Сохранить" class="btn btn-default" />
     </div>
 </form>
+</main>
