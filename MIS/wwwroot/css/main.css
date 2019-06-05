@@ -203,10 +203,6 @@ nav {
   padding-right: 0.5rem;
 }
 
-.register-input:hover {
-  /*background: linear-gradient(141deg, #fcffcd 0%, #bce4ae 75%);*/
-}
-
 .register-label {
   flex: 1;
   margin-left: 0.5rem;

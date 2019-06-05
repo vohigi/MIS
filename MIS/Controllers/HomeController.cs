@@ -11,7 +11,6 @@ namespace MIS.Controllers
 {
     public class HomeController : Controller
     {
-
         public IActionResult Index()
         {
             return View();
@@ -21,7 +20,9 @@ namespace MIS.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "admin")]
         public IActionResult AdminPage() => View();
+        [Authorize(Roles = "owner, admin")]
         public IActionResult OwnerPage() => View();
     }
 }
