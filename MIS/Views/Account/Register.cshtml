@@ -1,4 +1,7 @@
 @model MIS.ViewModels.RegisterViewModel
+@{
+  Layout = null;
+}
 <!-- <h2>Регистрация нового пользователя</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
@@ -22,6 +25,23 @@
         <input type="submit" value="Регистрация" />
     </div>
 </form> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <environment include="Development"> </environment>
+    <environment exclude="Development"> </environment>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
 <main>
       <h2>Registration</h2>
       <div class="form-container register-container column">
@@ -116,3 +136,5 @@
       <script src="~/js/registration.js"></script>
       <script src="~/js/http.js"></script>
     </main>
+    </body>
+</html>

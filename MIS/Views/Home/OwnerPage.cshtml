@@ -1,0 +1,215 @@
+﻿
+@{
+    ViewData["Title"] = "OwnerPage";
+}
+
+<main>
+    <div class="owner-info"></div>
+    <div id="create-msp">
+        <h2>Ще не зареєстрували свій медичний заклад?</h2>
+        <div class="link-msp">
+            <button id="add-msp-button" class="corners register-button">Зареєструйте медичний заклад зараз!</button>
+        </div>
+    </div>
+    <div id="add-msp" class="popup-msp-doctor">
+        <div class="form-container register-container column">
+            <form class="column" method="post">
+                <div id="error-msp" class="error"></div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="name-msp" class="register-label pointer">Назва закладу:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="name-msp"
+                               id="name-msp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                    <div class="input-group column">
+                        <label for="adress-msp" class="register-label pointer">Адреса закладу:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="adress-msp"
+                               id="adress-msp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group button-container column">
+                        <label for="edrp" class="register-label pointer">Код ЄДРПОУ:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="edrp"
+                               id="edrp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group button-container  column">
+                        <button id="register-msp-btn"
+                                class="register-button corners line-height-fix">
+                            Додати заклад
+                        </button>
+                        <button id="cancel-msp"
+                                class="register-button corners line-height-fix">
+                            Повернутися
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="msp-info">
+        <h2 id="msp-name">MspName</h2>
+        <div class="msp-statistics">
+            <div class="msp-box corners">
+                <span class="msp-box-text">
+                    Кількість декларацій, зареєстрованих у медичному закладі:
+                </span>
+                <span class="msp-span">0</span>
+            </div>
+            <div class="msp-box corners">
+                <span class="msp-box-text">Середній приріст декларацій за день:</span>
+                <span class="msp-span">0</span>
+            </div>
+            <div class="msp-box corners">
+                <span class="msp-box-text">Кількість працівників: </span>
+                <span class="msp-span">0</span>
+            </div>
+        </div>
+        <div class="doctor-msp">
+            <table id="doctor-msp-table">
+                <thead id="doctor-msp-thead">
+                <th>№</th>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>По-батькові</th>
+                <th>Телефон</th>
+                <th>Пошта</th>
+                <th>ІНН</th>
+                <th>Народження</th>
+                <th colspan="2">Дії</th>
+                </thead>
+                <tbody id="doctor-msp-table-body">
+                    <tr>
+                        <td>1</td>
+                        <td>Коломієць</td>
+                        <td>Станіслав</td>
+                        <td>Романович</td>
+                        <td>+380989930286</td>
+                        <td>badsds@gmail.com</td>
+                        <td>1234567890</td>
+                        <td>15.03.1212</td>
+                        <td>
+                            <a href="" id="delete-doc" class="table-links">Звільнити</a>
+                        </td>
+                        <td>
+                            <a href="" id="change-doc" class="table-links">Змінити</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="link-doctor-msp">
+            <button id="add-doctor"
+                    class="add-doctor-link corners register-button">
+                Призначити нового лікаря
+            </button>
+        </div>
+    </div>
+    <div id="popup-msp-doctor" class="popup-msp-doctor">
+        <div class="form-container register-container column">
+            <form class="column" method="post">
+                <div id="error" class="error"></div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="first-name" class="register-label pointer">Ім'я:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="first-name"
+                               id="first-name"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                    <div class="input-group column">
+                        <label for="middle-name" class="register-label pointer">По-батькові:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="middle-name"
+                               id="middle-name"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="second-name" class="register-label pointer">Прізвище:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="second-name"
+                               id="second-name"
+                               class="register-input corners line-height-fix top-input" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="email" class="register-label pointer">Електронна пошта:<span class="redstar">*</span></label>
+                        <input type="email"
+                               name="email"
+                               id="email"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                    <div class="input-group column">
+                        <label for="phone" class="register-label pointer">Телефон:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="phone"
+                               id="phone"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="gender" class="register-label">Стать:<span class="redstar">*</span></label>
+                        <select name="gender"
+                                id="gender"
+                                class="register-input corners pointer line-height-fix">
+                            <option value="not-chosen" disabled selected>Не вибрано</option>
+                            <option value="male" class="pointer">Чоловіча</option>
+                            <option value="female" class="pointer">Жіноча</option>
+                        </select>
+                    </div>
+                    <div class="input-group column">
+                        <label for="adress" class="register-label pointer">Адреса:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="adress"
+                               id="adress"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="ident-code" class="register-label pointer">Ідентифікаційний код<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="ident-code"
+                               id="ident-code"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                    <div class="input-group column">
+                        <label for="date-of-birth" class="register-label pointer">Дата народження<span class="redstar">*</span></label>
+                        <input type="date"
+                               name="date-of-birth"
+                               id="date-of-birth"
+                               class="register-input corners pointer line-height-fix"
+                               min="1900-01-01"
+                               value="" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group button-container  column">
+                        <button id="register-btn"
+                                class="register-button corners line-height-fix">
+                            Призначити лікаря
+                        </button>
+                        <button id="cancel"
+                                class="register-button corners line-height-fix">
+                            Повернутися
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="~/js/ownerDoctor.js"></script>
+</main>
