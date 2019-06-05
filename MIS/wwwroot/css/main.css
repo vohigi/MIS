@@ -90,7 +90,7 @@ nav {
         background-color: #f4ff61;
     }*/
 
-#error {
+.error {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   text-align: center;
@@ -641,7 +641,7 @@ th:last-child {
   text-decoration: none;
   color: #4a9643;
 }
-#popup-msp-doctor {
+.popup-msp-doctor {
   position: fixed;
   display: none;
   justify-content: center;

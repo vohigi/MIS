@@ -8,7 +8,51 @@
     <div id="create-msp">
         <h2>Ще не зареєстрували свій медичний заклад?</h2>
         <div class="link-msp">
-            <a href="AddMsp.html" class="create-msp-link corners register-button">Зареєструйте медичний заклад зараз!</a>
+            <button id="add-msp-button" class="corners register-button">Зареєструйте медичний заклад зараз!</button>
+        </div>
+    </div>
+    <div id="add-msp" class="popup-msp-doctor">
+        <div class="form-container register-container column">
+            <form class="column" method="post">
+                <div id="error-msp" class="error"></div>
+                <div class="row">
+                    <div class="input-group column">
+                        <label for="name-msp" class="register-label pointer">Назва закладу:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="name-msp"
+                               id="name-msp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                    <div class="input-group column">
+                        <label for="adress-msp" class="register-label pointer">Адреса закладу:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="adress-msp"
+                               id="adress-msp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group button-container column">
+                        <label for="edrp" class="register-label pointer">Код ЄДРПОУ:<span class="redstar">*</span></label>
+                        <input type="text"
+                               name="edrp"
+                               id="edrp"
+                               class="register-input corners line-height-fix" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group button-container  column">
+                        <button id="register-msp-btn"
+                                class="register-button corners line-height-fix">
+                            Додати заклад
+                        </button>
+                        <button id="cancel-msp"
+                                class="register-button corners line-height-fix">
+                            Повернутися
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -70,10 +114,10 @@
             </button>
         </div>
     </div>
-    <div id="popup-msp-doctor">
+    <div id="popup-msp-doctor" class="popup-msp-doctor">
         <div class="form-container register-container column">
             <form class="column" method="post">
-                <div id="error"></div>
+                <div id="error" class="error"></div>
                 <div class="row">
                     <div class="input-group column">
                         <label for="first-name" class="register-label pointer">Ім'я:<span class="redstar">*</span></label>
@@ -167,5 +211,5 @@
             </form>
         </div>
     </div>
-    <script src="./js/ownerDoctor.js"></script>
+    <script src="~/js/ownerDoctor.js"></script>
 </main>
