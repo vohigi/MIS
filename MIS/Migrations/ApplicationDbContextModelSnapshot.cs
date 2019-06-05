@@ -76,55 +76,6 @@ namespace MIS.Migrations
                     b.ToTable("declarations");
                 });
 
-            modelBuilder.Entity("MIS.Models.Employees", b =>
-                {
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(250)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("varchar(10)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("varchar(30)");
-
-                    b.Property<int?>("MspId")
-                        .HasColumnType("int(11)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("varchar(16)");
-
-                    b.Property<string>("TaxId")
-                        .IsRequired()
-                        .HasColumnName("TaxID")
-                        .HasColumnType("varchar(10)");
-
-                    b.HasKey("EmployeeId")
-                        .HasName("PRIMARY");
-
-                    b.HasIndex("MspId")
-                        .HasName("MspId");
-
-                    b.ToTable("employees");
-                });
-
             modelBuilder.Entity("MIS.Models.Msps", b =>
                 {
                     b.Property<int>("MspId")
@@ -156,6 +107,9 @@ namespace MIS.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("date");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -164,9 +118,24 @@ namespace MIS.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("varchar(30)");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<int?>("MspId")
+                        .HasColumnType("int(11)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(255);
@@ -182,12 +151,19 @@ namespace MIS.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<string>("TaxId")
+                        .HasColumnName("TaxId")
+                        .HasColumnType("varchar(10)");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MspId")
+                        .HasName("MspId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -308,8 +284,8 @@ namespace MIS.Migrations
 
             modelBuilder.Entity("MIS.Models.Declarations", b =>
                 {
-                    b.HasOne("MIS.Models.Employees", "Employee")
-                        .WithMany("Declarations")
+                    b.HasOne("MIS.Models.User", "Employee")
+                        .WithMany("DeclarationsE")
                         .HasForeignKey("EmployeeId")
                         .HasConstraintName("declarations_ibfk_1")
                         .OnDelete(DeleteBehavior.SetNull);
@@ -319,17 +295,11 @@ namespace MIS.Migrations
                         .HasForeignKey("MIS.Models.Declarations", "UserId");
                 });
 
-            modelBuilder.Entity("MIS.Models.Employees", b =>
+            modelBuilder.Entity("MIS.Models.User", b =>
                 {
-                    b.HasOne("MIS.Models.User", "User")
-                        .WithOne("Employees")
-                        .HasForeignKey("MIS.Models.Employees", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("MIS.Models.Msps", "Msp")
-                        .WithMany("Employees")
+                        .WithMany("User")
                         .HasForeignKey("MspId")
-                        .HasConstraintName("employees_ibfk_1")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 

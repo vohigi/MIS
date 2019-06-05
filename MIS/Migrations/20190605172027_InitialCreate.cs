@@ -23,31 +23,6 @@ namespace MIS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 255, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 255, nullable: true),
-                    Email = table.Column<string>(maxLength: 255, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 255, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "msps",
                 columns: table => new
                 {
@@ -81,6 +56,44 @@ namespace MIS.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 255, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 255, nullable: true),
+                    Email = table.Column<string>(maxLength: 255, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 255, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    MspId = table.Column<int>(type: "int(11)", nullable: true),
+                    FirstName = table.Column<string>(type: "varchar(30)", nullable: true),
+                    MiddleName = table.Column<string>(type: "varchar(30)", nullable: true),
+                    LastName = table.Column<string>(type: "varchar(30)", nullable: true),
+                    TaxId = table.Column<string>(type: "varchar(10)", nullable: true),
+                    Gender = table.Column<string>(type: "varchar(10)", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_msps_MspId",
+                        column: x => x.MspId,
+                        principalTable: "msps",
+                        principalColumn: "MspId",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,38 +182,6 @@ namespace MIS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "employees",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<string>(type: "varchar(250)", nullable: false),
-                    MspId = table.Column<int>(type: "int(11)", nullable: true),
-                    FirstName = table.Column<string>(type: "varchar(30)", nullable: false),
-                    MiddleName = table.Column<string>(type: "varchar(30)", nullable: false),
-                    LastName = table.Column<string>(type: "varchar(30)", nullable: false),
-                    TaxID = table.Column<string>(type: "varchar(10)", nullable: false),
-                    Phone = table.Column<string>(type: "varchar(16)", nullable: false),
-                    Email = table.Column<string>(type: "varchar(16)", nullable: false),
-                    Gender = table.Column<string>(type: "varchar(10)", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PRIMARY", x => x.EmployeeId);
-                    table.ForeignKey(
-                        name: "FK_employees_AspNetUsers_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "employees_ibfk_1",
-                        column: x => x.MspId,
-                        principalTable: "msps",
-                        principalColumn: "MspId",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "declarations",
                 columns: table => new
                 {
@@ -224,8 +205,8 @@ namespace MIS.Migrations
                     table.ForeignKey(
                         name: "declarations_ibfk_1",
                         column: x => x.EmployeeId,
-                        principalTable: "employees",
-                        principalColumn: "EmployeeId",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_declarations_AspNetUsers_UserId",
@@ -262,6 +243,11 @@ namespace MIS.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "MspId",
+                table: "AspNetUsers",
+                column: "MspId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -282,11 +268,6 @@ namespace MIS.Migrations
                 table: "declarations",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "MspId",
-                table: "employees",
-                column: "MspId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -311,9 +292,6 @@ namespace MIS.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "employees");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

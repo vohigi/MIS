@@ -7,7 +7,7 @@ namespace MIS.Models
   {
     public Msps()
     {
-      Employees = new HashSet<Employees>();
+      User = new HashSet<User>();
     }
 
     public int MspId { get; set; }
@@ -15,6 +15,6 @@ namespace MIS.Models
     public string Edrpou { get; set; }
     public string Address { get; set; }
 
-    public virtual ICollection<Employees> Employees { get; set; }
+    public virtual ICollection<User> User { get; set; }
   }
 }

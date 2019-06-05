@@ -18,7 +18,7 @@ namespace MIS.Models
     public string Email { get; set; }
     public DateTime BirthDate { get; set; }
 
-    public virtual Employees Employee { get; set; }
+    public virtual User Employee { get; set; }
     public virtual User User { get; set; }
   }
 }
