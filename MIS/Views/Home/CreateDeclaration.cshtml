@@ -7,7 +7,7 @@
       <h2>Declaration</h2>
       <div class="form-container register-container column">
         <form id="create-dec-form" class="column" method="post" asp-controller="Home" asp-action="CreateDeclaration">
-          @Html.HiddenFor(a => a.Id, new { @Name = "EmployeeId" });
+          @Html.HiddenFor(a => a.Id, new { @Name = "EmployeeId" })
           <div id="error"></div>
           <input id="date" name="CreateDate" type="hidden" value="">
           <div class="row">

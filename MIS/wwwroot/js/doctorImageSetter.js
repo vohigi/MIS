@@ -11,7 +11,10 @@ function loadImages() {
     const form = document.getElementById("doctor-container").children[i]
       .children[0];
     let employeeId = form.children[0].getAttribute("value");
-    form.children[1].setAttribute("src", "../images/doctors/" + 1 + ".jpg");
+    form.children[1].children[0].setAttribute(
+      "src",
+      "../images/doctors/" + employeeId + ".jpg"
+    );
     // console.log(form.children[1]);
   }
 }

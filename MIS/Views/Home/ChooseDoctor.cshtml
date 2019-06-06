@@ -22,10 +22,10 @@
         {
             <div class="doctor-form-container">
                 <form class="doctor-info" asp-action="CreateDeclaration" asp-controller="Home" method="get">
-                    @Html.HiddenFor(Model => a.Id, new { @id = a.Id + "_employee", @Name = "Id" });
+                    @Html.HiddenFor(Model => a.Id, new { @id = a.Id + "_employee", @Name = "Id" })
 
                     <div class="doc-img">
-                        <img src="" alt="Doctor image" />
+                        <img src="" alt="Doctor image" asp-append-version="true" class="doctor-image"/>
                         <input type="submit" value="Вибрати" class="choose-doctor-button" />
                     </div>
                     <div class="doc-val">

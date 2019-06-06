@@ -24,27 +24,31 @@
     <nav id="navBar" class="column">
         <ol class="nav-links column">
             <li>
-                <a href="Home/" class="nav-link">
+                <a href="~/Home/" class="nav-link">
                     <i class="fas fa-home"></i>
                     <div class="nav-text"><span class="nav-text-span">Головна</span></div>
                 </a>
             </li>
             <li>
                 <form method="post" asp-action="LogOff" asp-controller="Account" class="nav-link">
-                    <i class="fas fa-home"></i>
+                    <i class="fas fa-sign-out-alt"></i>
                     <div class="nav-text"><button type="submit" class="nav-text-span">Log Off</button></div>
                 </form>
             </li>
         </ol>
     </nav>
+    
     @RenderBody()
-    @*<div class="container body-content">
-
-            <hr />
-            <footer>
-                <p>&copy; 2019 - TestLogin</p>
-            </footer>
-        </div>*@
+    <footer>
+		<div class="contacts">
+			<p>E-mail : bodia007killer@gmail.com, vohigi@gmail.com</p>
+			<p>Telegram : bodia007q, vohigi</p>
+		</div>
+		<div id="endofsite">
+			<p> (2019)</p>
+					
+		</div>
+	</footer>
     <script src="../js/navBar.js"></script>
     @RenderSection("Scripts", required: false)
     

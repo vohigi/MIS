@@ -32,9 +32,9 @@
                             <form method="post" asp-controller="Home" asp-action="CreateAppointment">
                                 @Html.HiddenFor(Model => Model.Appointments[i].AppointmentId, new { @name = "AppointmentId" })
                                 @if(Model.Appointments[i].Status=="free"){
-                                <button type="submit">@Model.Appointments[i].DateTime.TimeOfDay</button>
+                                <button type="submit" class="table-button">@Model.Appointments[i].DateTime.TimeOfDay</button>
                                 }else{
-                                    <button type="submit" disabled>@Model.Appointments[i].DateTime.TimeOfDay</button>
+                                    <button type="submit" class="table-button" disabled>@Model.Appointments[i].DateTime.TimeOfDay</button>
                                 }
                             </form>
                         </td>
@@ -42,9 +42,9 @@
                             <form>
                                 @Html.HiddenFor(Model => Model.Appointments[i+4].AppointmentId, new { @name = "AppointmentId" })
                                 @if(Model.Appointments[i+4].Status=="free"){
-                                <button type="submit">@Model.Appointments[i+4].DateTime.TimeOfDay</button>
+                                <button type="submit" class="table-button">@Model.Appointments[i+4].DateTime.TimeOfDay</button>
                                 }else{
-                                    <button type="submit" disabled>@Model.Appointments[i+4].DateTime.TimeOfDay</button>
+                                    <button type="submit" class="table-button" disabled>@Model.Appointments[i+4].DateTime.TimeOfDay</button>
                                 }
                             </form>        
                         </td>

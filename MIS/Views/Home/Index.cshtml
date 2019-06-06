@@ -10,20 +10,20 @@
 <main>
     <section class="login-system">
         @if(User.IsInRole("owner")){
-            <a href="Home/OwnerPage" class="a-link">Кабінет головного лікаря</a>
+            <a href="~/Home/OwnerPage" class="a-link">Кабінет головного лікаря</a>
         }
         
         @if(User.IsInRole("user")){
             
             if(Model.User.Declarations == null){
                 <div class="register-links">
-                    <a href="Home/ChooseDoctor" class="a-link declaration-reg">Зареєструвати декларацію</a>
+                    <a href="~/Home/ChooseDoctor" class="a-link declaration-reg">Зареєструвати декларацію</a>
                 </div>
             } else{
-                <a href="Home/Appointment" class="a-link">Записатися на прийом</a>
+                <a href="~/Home/Appointment" class="a-link">Записатися на прийом</a>
             }
             <div class="register-links">
-                <a href="Home/UserPage" class="a-link">Сторінка клієнта</a>
+                <a href="~/Home/UserPage" class="a-link">Сторінка клієнта</a>
             </div>
                 
             
