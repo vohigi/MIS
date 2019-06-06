@@ -1,48 +1,52 @@
-﻿
+﻿@model MIS.ViewModels.OwnerPageViewModel;
 @{
     ViewData["Title"] = "OwnerPage";
 }
 @if (!@User.IsInRole("admin")) {
 <main>
+
     <div class="owner-info"></div>
-    <div id="create-msp">
-        <h2>Ще не зареєстрували свій медичний заклад?</h2>
-        <div class="link-msp">
-            <button id="add-msp-button" class="corners register-button">Зареєструйте медичний заклад зараз!</button>
+    @if(Model.Owner.MspId == null){
+        <div id="create-msp">
+            <h2>Ще не зареєстрували свій медичний заклад?</h2>
+            <div class="link-msp">
+                <button id="add-msp-button" class="corners register-button">Зареєструйте медичний заклад зараз!</button>
+            </div>
         </div>
-    </div>
+    
+    
     <div id="add-msp" class="popup-msp-doctor">
         <div class="form-container register-container column">
-            <form class="column" method="post">
+            <form id="add-msp-form"class="column" method="post" asp-controller="Home" asp-action="CreateMsp">
                 <div id="error-msp" class="error"></div>
                 <div class="row">
                     <div class="input-group column">
                         <label for="name-msp" class="register-label pointer">Назва закладу:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="name-msp"
                                id="name-msp"
-                               class="register-input corners line-height-fix" />
+                               class="register-input corners line-height-fix" 
+                               name="Name"/>
                     </div>
                     <div class="input-group column">
                         <label for="adress-msp" class="register-label pointer">Адреса закладу:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="adress-msp"
                                id="adress-msp"
-                               class="register-input corners line-height-fix" />
+                               class="register-input corners line-height-fix"
+                               name="Edrpou" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group button-container column">
                         <label for="edrp" class="register-label pointer">Код ЄДРПОУ:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="edrp"
+                                name="Address"
                                id="edrp"
                                class="register-input corners line-height-fix" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-group button-container  column">
-                        <button id="register-msp-btn"
+                        <button type="submit" id="register-msp-btn"
                                 class="register-button corners line-height-fix">
                             Додати заклад
                         </button>
@@ -55,9 +59,11 @@
             </form>
         </div>
     </div>
-
+    <script src="~/js/ownerDoctor.js"></script>
+    } else{
     <div class="msp-info">
-        <h2 id="msp-name">MspName</h2>
+        <h2 id="msp-name">
+        </h2>
         <div class="msp-statistics">
             <div class="msp-box corners">
                 <span class="msp-box-text">
@@ -71,13 +77,14 @@
             </div>
             <div class="msp-box corners">
                 <span class="msp-box-text">Кількість працівників: </span>
-                <span class="msp-span">0</span>
+                <span class="msp-span">
+                    @Model.UserList.Where(x => x.MspId == Model.Owner.MspId).Count();
+                </span>
             </div>
         </div>
         <div class="doctor-msp">
             <table id="doctor-msp-table">
                 <thead id="doctor-msp-thead">
-                <th>№</th>
                 <th>Ім'я</th>
                 <th>Прізвище</th>
                 <th>По-батькові</th>
@@ -88,22 +95,27 @@
                 <th colspan="2">Дії</th>
                 </thead>
                 <tbody id="doctor-msp-table-body">
-                    <tr>
-                        <td>1</td>
-                        <td>Коломієць</td>
-                        <td>Станіслав</td>
-                        <td>Романович</td>
-                        <td>+380989930286</td>
-                        <td>badsds@gmail.com</td>
-                        <td>1234567890</td>
-                        <td>15.03.1212</td>
-                        <td>
-                            <a href="" id="delete-doc" class="table-links">Звільнити</a>
-                        </td>
-                        <td>
-                            <a href="" id="change-doc" class="table-links">Змінити</a>
-                        </td>
-                    </tr>
+                    @foreach(var item in Model.UserList){
+                        if(item.MspId == Model.Owner.MspId){
+
+                        
+                        <tr>
+                            <td>@item.LastName</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.MiddleName</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Email</td>
+                            <td>@item.TaxId</td>
+                            <td>@item.BirthDate</td>
+                            <td>
+                                <a href="" class="table-links">Звільнити</a>
+                            </td>
+                            <td>
+                                <a href="" class="table-links">Змінити</a>
+                            </td>
+                        </tr>
+                        }
+                    }
                 </tbody>
             </table>
         </div>
@@ -116,20 +128,20 @@
     </div>
     <div id="popup-msp-doctor" class="popup-msp-doctor">
         <div class="form-container register-container column">
-            <form class="column" method="post">
+            <form id="add-doctor-form" class="column" method="post" asp-controller="Home" asp-action="CreateDoctor">
                 <div id="error" class="error"></div>
                 <div class="row">
                     <div class="input-group column">
                         <label for="first-name" class="register-label pointer">Ім'я:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="first-name"
+                               name="FirstName"
                                id="first-name"
                                class="register-input corners line-height-fix" />
                     </div>
                     <div class="input-group column">
                         <label for="middle-name" class="register-label pointer">По-батькові:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="middle-name"
+                               name="MiddleName"
                                id="middle-name"
                                class="register-input corners line-height-fix" />
                     </div>
@@ -138,7 +150,7 @@
                     <div class="input-group column">
                         <label for="second-name" class="register-label pointer">Прізвище:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="second-name"
+                               name="LastName"
                                id="second-name"
                                class="register-input corners line-height-fix top-input" />
                     </div>
@@ -147,22 +159,23 @@
                     <div class="input-group column">
                         <label for="email" class="register-label pointer">Електронна пошта:<span class="redstar">*</span></label>
                         <input type="email"
-                               name="email"
+                               name="Email"
                                id="email"
                                class="register-input corners line-height-fix" />
                     </div>
                     <div class="input-group column">
                         <label for="phone" class="register-label pointer">Телефон:<span class="redstar">*</span></label>
                         <input type="text"
-                               name="phone"
+                               name="PhoneNumber"
                                id="phone"
                                class="register-input corners line-height-fix" />
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="input-group column">
                         <label for="gender" class="register-label">Стать:<span class="redstar">*</span></label>
-                        <select name="gender"
+                        <select name="Gender"
                                 id="gender"
                                 class="register-input corners pointer line-height-fix">
                             <option value="not-chosen" disabled selected>Не вибрано</option>
@@ -182,14 +195,14 @@
                     <div class="input-group column">
                         <label for="ident-code" class="register-label pointer">Ідентифікаційний код<span class="redstar">*</span></label>
                         <input type="text"
-                               name="ident-code"
+                               name="TaxId"
                                id="ident-code"
                                class="register-input corners line-height-fix" />
                     </div>
                     <div class="input-group column">
                         <label for="date-of-birth" class="register-label pointer">Дата народження<span class="redstar">*</span></label>
                         <input type="date"
-                               name="date-of-birth"
+                               name="BirthDate"
                                id="date-of-birth"
                                class="register-input corners pointer line-height-fix"
                                min="1900-01-01"
@@ -198,7 +211,7 @@
                 </div>
                 <div class="row">
                     <div class="input-group button-container  column">
-                        <button id="register-btn"
+                        <button type="submit" id="register-btn"
                                 class="register-button corners line-height-fix">
                             Призначити лікаря
                         </button>
@@ -211,6 +224,8 @@
             </form>
         </div>
     </div>
-    <script src="~/js/ownerDoctor.js"></script>
+    <script src="~/js/ownerDoctorMspExists.js"></script>
+    }
+    
 </main>
 }
