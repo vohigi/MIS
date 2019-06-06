@@ -26,10 +26,40 @@ namespace MIS.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users.Include(x => x.Msp).Include(x => x.Declarations).FirstOrDefault(x => x.Id == userID);
+
+            if (user == null)
+            {
+                return Content("error");
+            }
+            IndexPageViewModel model = new IndexPageViewModel()
+            {
+                User = user,
+            };
+
+            return View(model);
         }
 
+        [Authorize(Roles = "user")]
+        public IActionResult UserPage()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users
+            .Include(x => x.Declarations)
+            .ThenInclude(x => x.Employee)
+            .ThenInclude(x => x.Msp)
+            .Include(x => x.AppointmentsU)
+            .FirstOrDefault(x => x.Id == userID);
+            UserPageViewModel model = new UserPageViewModel()
+            {
+                User = user
+            };
 
+            return View(model);
+        }
 
         [Authorize(Roles = "owner")]
         public IActionResult OwnerPage()
@@ -165,6 +195,7 @@ namespace MIS.Controllers
                     new Appointments(user.Declarations.EmployeeId, dates[2].AddDays(1), "free"),
                     new Appointments(user.Declarations.EmployeeId, dates[3].AddDays(1), "free")
                 };
+
                 _context.Appointments.AddRange(appList);
                 _context.SaveChanges();
                 return View(model);

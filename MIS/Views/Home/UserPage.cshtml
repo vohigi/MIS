@@ -1,0 +1,51 @@
+@model MIS.ViewModels.UserPageViewModel;
+<main>
+    <div class="msp-info">
+    <h3>Дані про вас:</h3>
+    <div>
+        <p class="user-text">Пошта: @Model.User.Email</p>
+        <p class="user-text">Номер телефону: @Model.User.PhoneNumber</p>
+    </div>
+    <h3>Дані декларації:</h3>
+    @if(Model.User.Declarations == null){
+        <p>Декларації не існує. Поверніться на головну сторінку і створіть декларацію</p>
+    } else{
+        <p class="user-text">Ваше ім'я: @Model.User.Declarations.FirstName
+            @Model.User.Declarations.MiddleName 
+             @Model.User.Declarations.LastName
+        </p>
+        <p class="user-text">Ваш лікар: @Model.User.Declarations.Employee.FirstName
+             @Model.User.Declarations.Employee.MiddleName 
+             @Model.User.Declarations.Employee.LastName
+        </p>
+        <p class="user-text">
+            Дата створення декларіції: @Model.User.Declarations.CreateDate.ToShortDateString()
+        </p>
+        <p class="user-text">
+            Ваша адреса: @Model.User.Declarations.Address
+        </p>
+        <h3>Історія прийомів:</h3>
+        @if(Model.User.AppointmentsU == null){
+        <p class="user-text">Ви ще не записувались на прийом</p>
+        } else{
+         <div class="doctor-msp">
+            <table id="doctor-msp-table" class="table-top-width">
+                <thead id="doctor-msp-thead">
+                <th class="long-th">Дата</th>
+                <th class="long-th">Статус</th>
+                </thead>
+                <tbody id="doctor-msp-table-body">
+            @foreach(var item in Model.User.AppointmentsU){
+                <tr>
+                    <td>@item.DateTime.ToShortDateString()</td>
+                    <td>@item.Status</td>
+                </tr>                
+            }
+                </tbody>
+            </table>
+            </div>
+        }
+    }
+    
+    
+</main>
