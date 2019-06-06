@@ -94,29 +94,90 @@ namespace MIS.Controllers
         }
 
         [Authorize(Roles = "user")]
-        public async Task<IActionResult> Appointment()
+        public async Task<IActionResult> Appointment(AppointmentPageViewModel model)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
             var userID = _userManager.GetUserId(currentUser);
             var user = _context.Users.Include(x => x.Declarations)
             .Include(x => x.Declarations.Employee)
+            .Include(x => x.Msp)
             .FirstOrDefault(x => x.Id == userID);
 
+            model.User = user;
+
+
             DateTime dt = DateTime.Now;
+            DateTime dateDefault = new DateTime(dt.Year, dt.Month, dt.Day, 0, 0, 0);
+            DateTime[] dates = new DateTime[]{
+                new DateTime(dt.Year, dt.Month, dt.Day + 1, 9, 0, 0),
+                new DateTime(dt.Year, dt.Month, dt.Day + 1, 10, 0, 0),
+                new DateTime(dt.Year, dt.Month, dt.Day + 1, 11, 0, 0),
+                new DateTime(dt.Year, dt.Month, dt.Day + 1, 12, 0, 0)
+            };
 
             var appointments = _context.Appointments.Include(x => x.Employee)
-            .LastOrDefaultAsync(x => x.EmployeeId == user.Declarations.EmployeeId);
+            .Where(x => x.EmployeeId == user.Declarations.EmployeeId)
+            .OrderByDescending(x => x.DateTime);
 
+            model.Appointments = appointments;
 
-
-
-
-            // Appointment;
-
-
-
-            return View();
+            if (appointments == null)
+            {
+                List<Appointments> appList = new List<Appointments>(){
+                    new Appointments(user.Declarations.EmployeeId, dates[0], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[1], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[2], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[3], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[0].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[1].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[2].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[3].AddDays(1), "free")
+                };
+                _context.Appointments.AddRange(appList);
+                _context.SaveChanges();
+                return View(model);
+            }
+            else if ((appointments.ToList()[0].DateTime - dt).TotalDays > 0)
+            {
+                if ((appointments.ToList()[0].DateTime - dt).TotalDays == 1)
+                {
+                    List<Appointments> appList = new List<Appointments>(){
+                        new Appointments(user.Declarations.EmployeeId, dates[0].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[1].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[2].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[3].AddDays(1), "free")
+                    };
+                    _context.Appointments.AddRange(appList);
+                    _context.SaveChanges();
+                    return View(model);
+                }
+                else return View(model);
+            }
+            else if (appointments.ToList()[0].DateTime <= dt)
+            {
+                List<Appointments> appList = new List<Appointments>(){
+                    new Appointments(user.Declarations.EmployeeId, dates[0], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[1], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[2], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[3], "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[0].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[1].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[2].AddDays(1), "free"),
+                    new Appointments(user.Declarations.EmployeeId, dates[3].AddDays(1), "free")
+                };
+                _context.Appointments.AddRange(appList);
+                _context.SaveChanges();
+                return View(model);
+            }
+            else return Content("Not Working");
         }
+
+
+
+
+        // Appointment;
+
+
 
 
 
