@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MIS.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Claims;
 using MIS.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Globalization;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace MIS.Controllers
@@ -27,12 +29,8 @@ namespace MIS.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        [Authorize(Roles = "admin")]
-        public IActionResult AdminPage() => View();
+
+
         [Authorize(Roles = "owner")]
         public IActionResult OwnerPage()
         {
@@ -58,6 +56,69 @@ namespace MIS.Controllers
 
             return View(model);
         }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        [Authorize(Roles = "admin")]
+        public IActionResult AdminPage() => View();
+        [Authorize(Roles = "user")]
+        public async Task<IActionResult> ChooseDoctor()
+        {
+            var _e = await _userManager.GetUsersInRoleAsync("doctor");
+            var selected = _context.Users.Include(x => x.Msp).Where(u => _e.Contains(u));
+            //.Include(x => x.Msp).ToListAsync();
+            return View(selected);
+        }
+        [HttpGet]
+        public async Task<IActionResult> CreateDeclaration(string Id)
+        {
+            var doctor = _context.Users.Include(x => x.Msp).FirstOrDefault(x => x.Id == Id);
+            return View(doctor);
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateDeclaration(Declarations model)
+        {
+            Declarations declaration = model;
+            var doctor = _context.Users.Include(x => x.Msp).FirstOrDefault(x => x.Id == model.EmployeeId);
+            declaration.Employee = doctor;
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users.FirstOrDefault(x => x.Id == userID);
+            declaration.User = user;
+            declaration.Phone = user.PhoneNumber;
+            declaration.Email = user.Email;
+            await _context.Declarations.AddAsync(declaration);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "user")]
+        public async Task<IActionResult> Appointment()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users.Include(x => x.Declarations)
+            .Include(x => x.Declarations.Employee)
+            .FirstOrDefault(x => x.Id == userID);
+
+            DateTime dt = DateTime.Now;
+
+            var appointments = _context.Appointments.Include(x => x.Employee)
+            .LastOrDefaultAsync(x => x.EmployeeId == user.Declarations.EmployeeId);
+
+
+
+
+
+            // Appointment;
+
+
+
+            return View();
+        }
+
+
 
         public async Task<IActionResult> CreateMsp(Msps msp)
         {
@@ -81,22 +142,6 @@ namespace MIS.Controllers
                 IdentityResult result = await _userManager.DeleteAsync(user);
             }
             return RedirectToAction("OwnerPage");
-        }
-        [Authorize(Roles = "user")]
-        public async Task<IActionResult> Appointment()
-        {
-            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
-            var userID = _userManager.GetUserId(currentUser);
-            var user = _context.Users.FirstOrDefault(x => x.Id == userID);
-
-            var docList = await _userManager.GetUsersInRoleAsync("doctor");
-            var declarationRow = _context.Declarations
-            .Include(x => x.User)
-            .FirstOrDefault(x => x.UserId == user.Id);
-
-
-
-            return View(declarationRow);
         }
 
         public async Task<IActionResult> CreateDoctor(OwnerPageViewModel model)
@@ -136,10 +181,12 @@ namespace MIS.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-            await _context.Users.AddAsync(newUser);
             // await _context.SaveChangesAsync();
 
             return RedirectToAction("OwnerPage");
+
         }
+
     }
 }
+

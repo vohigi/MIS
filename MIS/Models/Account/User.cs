@@ -5,22 +5,23 @@ using System;
 using System.Collections.Generic;
 namespace MIS.Models
 {
-  public class User : IdentityUser
-  {
-    public User()
+    public class User : IdentityUser
     {
-      DeclarationsE = new HashSet<Declarations>();
+        public User()
+        {
+            DeclarationsE = new HashSet<Declarations>();
+        }
+        public virtual Declarations Declarations { get; set; }
+        public virtual int? MspId { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string MiddleName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual string TaxId { get; set; }
+        public virtual string Gender { get; set; }
+        public virtual DateTime BirthDate { get; set; }
+        public virtual Msps Msp { get; set; }
+        public virtual ICollection<Declarations> DeclarationsE { get; set; }
+        public virtual ICollection<Appointments> AppointmentsE { get; set; }
+        public virtual ICollection<Appointments> AppointmentsU { get; set; }
     }
-    public virtual Declarations Declarations { get; set; }
-    public virtual int? MspId { get; set; }
-    public virtual string FirstName { get; set; }
-    public virtual string MiddleName { get; set; }
-    public virtual string LastName { get; set; }
-    public virtual string TaxId { get; set; }
-    public virtual string Gender { get; set; }
-    public virtual DateTime BirthDate { get; set; }
-    public virtual Msps Msp { get; set; }
-    public virtual ICollection<Declarations> DeclarationsE { get; set; }
-
-  }
 };

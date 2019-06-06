@@ -15,6 +15,8 @@ namespace MIS.Models
         public virtual DbSet<Declarations> Declarations { get; set; }
         // public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Msps> Msps { get; set; }
+
+        public virtual DbSet<Appointments> Appointments { get; set; }
         public DbSet<IdentityRole> IdentityRole { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -27,6 +29,8 @@ namespace MIS.Models
 
             // one-to-zero or one relationship between ApplicationUser and Customer
             // UserId column in Customers table will be foreign key
+
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasIndex(e => e.MspId)
@@ -71,6 +75,42 @@ namespace MIS.Models
             //   entity.Property(u => u.Name).HasMaxLength(255);
             //   entity.Property(u => u.NormalizedName).HasMaxLength(255);
             // });
+            modelBuilder.Entity<Appointments>(entity =>
+            {
+                entity.HasKey(e => e.AppointmentId)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("appointments");
+
+                entity.HasIndex(e => e.EmployeeId)
+                    .HasName("EmployeeId");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("UserId");
+
+                entity.Property(e => e.AppointmentId).HasColumnType("int(11)");
+
+                entity.Property(e => e.DateTime).HasColumnType("datetime(6)");
+
+                entity.Property(e => e.EmployeeId).HasColumnType("varchar(250)");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnType("varchar(24)");
+
+                entity.Property(e => e.UserId).HasColumnType("varchar(250)");
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.AppointmentsE)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.SetNull);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AppointmentsU)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.SetNull);
+            });
+
             modelBuilder.Entity<Declarations>(entity =>
             {
                 entity.HasKey(e => e.DeclarationId)

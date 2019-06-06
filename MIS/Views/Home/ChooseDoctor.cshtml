@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MIS.Models.User>
+@{
+
+    ViewData["Title"] = "ChooseDoctor";
+
+}
+
+<main>
+
+    <h2>Виберіть лікаря</h2>
+
+    <div class="doctor-filter">
+        <label for="doctor-name-change">Вибрати за іменем:</label>
+        <input list="doctor-name-select" id="doctor-name-change" class="corners"/>
+        <datalist class="doctor-name-select" id="doctor-name-select">
+            
+        </datalist>
+    </div>
+
+    <div class="doctors" id="doctor-container">
+        @foreach (var a in Model)
+        {
+            <div class="doctor-form-container">
+                <form class="doctor-info" asp-action="CreateDeclaration" asp-controller="Home" method="get">
+                    @Html.HiddenFor(Model => a.Id, new { @id = a.Id + "_employee", @Name = "Id" });
+
+                    <div class="doc-img">
+                        <img src="" alt="Doctor image" />
+                        <input type="submit" value="Вибрати" class="choose-doctor-button" />
+                    </div>
+                    <div class="doc-val">
+                        <span>
+                            @Html.DisplayFor(Model => a.FirstName)
+                            @Html.DisplayFor(Model => a.MiddleName)
+                            @Html.DisplayFor(Model => a.LastName)
+                        </span>
+                        <span>@Html.DisplayFor(Model => a.Msp.Name)</span>
+                        <span>@Html.DisplayFor(Model => a.Msp.Address)</span>
+                        
+                    </div>
+                </form>
+            </div>
+        }
+    </div>
+
+</main>
+<script src="../js/doctorImageSetter.js"></script>
+<script src="../js/chooseDoctor.js"></script>
+
