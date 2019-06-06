@@ -37,7 +37,7 @@
                 <tbody id="doctor-msp-table-body">
             @foreach(var item in Model.User.AppointmentsU){
                 <tr>
-                    <td>@item.DateTime.ToShortDateString()</td>
+                    <td>@item.DateTime</td>
                     <td>@item.Status</td>
                 </tr>                
             }
