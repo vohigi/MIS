@@ -21,8 +21,8 @@
         @foreach (var a in Model)
         {
             <div class="doctor-form-container">
-                <form class="doctor-info" asp-action="CreateDeclaration" asp-controller="Home" asp-route-userid="@a.Id" method="get">
-                    //@Html.HiddenFor(Model => a.Id, new { @id = a.Id + "_employee", @Name = "Id" });
+                <form class="doctor-info" asp-action="CreateDeclaration" asp-controller="Home" method="get">
+                    @Html.HiddenFor(Model => a.Id, new { @id = a.Id + "_employee", @Name = "Id" });
 
                     <div class="doc-img">
                         <img src="" alt="Doctor image" />
@@ -44,7 +44,6 @@
     </div>
 
 </main>
-<script src="../js/http.js"></script>
 <script src="../js/doctorImageSetter.js"></script>
 <script src="../js/chooseDoctor.js"></script>
 

@@ -34,13 +34,13 @@ namespace MIS.Controllers
     }
     [Authorize(Roles = "admin")]
     public IActionResult AdminPage() => View();
-    [Authorize(Roles = "owner, admin")]
+    [Authorize(Roles = "user")]
     public async Task<IActionResult> ChooseDoctor()
     {
       var _e = await _userManager.GetUsersInRoleAsync("doctor");
       var selected = _context.Users.Include(x => x.Msp).Where(u => _e.Contains(u));
       //.Include(x => x.Msp).ToListAsync();
-      return View(_e);
+      return View(selected);
     }
     [HttpGet]
     public async Task<IActionResult> CreateDeclaration(string Id)
@@ -60,7 +60,9 @@ namespace MIS.Controllers
       declaration.User = user;
       declaration.Phone = user.PhoneNumber;
       declaration.Email = user.Email;
-      return View(doctor);
+      await _context.Declarations.AddAsync(declaration);
+      await _context.SaveChangesAsync();
+      return RedirectToAction("Index");
     }
 
     [Authorize(Roles = "owner")]

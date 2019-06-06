@@ -36,7 +36,7 @@ namespace MIS.Controllers
     {
       if (ModelState.IsValid)
       {
-        User user = new User { Email = model.Email, UserName = model.Email };
+        User user = new User { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
         // добавляем пользователя
         var result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)

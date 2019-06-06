@@ -22,8 +22,10 @@ const regIdent = /^\d{10}$/;
 dateOfBirth.setAttribute("max", today); //setting max date as today
 
 //calling validate function to send ajax if everything is filled
-document.getElementById("register-btn").addEventListener("click", function(e) {
+//document.getElementById("register-btn")
+form.addEventListener("submit", function(e) {
   e.preventDefault();
+  e.target.firstElementChild.setAttribute("name", "EmployeeId");
   validate();
 });
 //onclick event which calls when everyting is correctly filled
