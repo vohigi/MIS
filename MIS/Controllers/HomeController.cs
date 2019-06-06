@@ -33,7 +33,7 @@ namespace MIS.Controllers
         }
         [Authorize(Roles = "admin")]
         public IActionResult AdminPage() => View();
-        [Authorize(Roles = "owner, admin")]
+        [Authorize(Roles = "owner")]
         public IActionResult OwnerPage()
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
@@ -82,6 +82,22 @@ namespace MIS.Controllers
             }
             return RedirectToAction("OwnerPage");
         }
+        [Authorize(Roles = "user")]
+        public async Task<IActionResult> Appointment()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users.FirstOrDefault(x => x.Id == userID);
+
+            var docList = await _userManager.GetUsersInRoleAsync("doctor");
+            var declarationRow = _context.Declarations
+            .Include(x => x.User)
+            .FirstOrDefault(x => x.UserId == user.Id);
+
+
+
+            return View(declarationRow);
+        }
 
         public async Task<IActionResult> CreateDoctor(OwnerPageViewModel model)
         {
@@ -121,7 +137,7 @@ namespace MIS.Controllers
                 }
             }
             await _context.Users.AddAsync(newUser);
-            await _context.SaveChangesAsync();
+            // await _context.SaveChangesAsync();
 
             return RedirectToAction("OwnerPage");
         }

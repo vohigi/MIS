@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace MIS.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         UserManager<User> _userManager;
