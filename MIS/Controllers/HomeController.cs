@@ -24,12 +24,42 @@ namespace MIS.Controllers
       _context = context;
       _userManager = userManager;
     }
-    public IActionResult Index()
-    {
-      return View();
-    }
+        public IActionResult Index()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users.Include(x => x.Msp).Include(x => x.Declarations).FirstOrDefault(x => x.Id == userID);
 
+            if (user == null)
+            {
+                return Content("error");
+            }
+            IndexPageViewModel model = new IndexPageViewModel()
+            {
+                User = user,
+            };
 
+            return View(model);
+        }
+
+        [Authorize(Roles = "user")]
+        public IActionResult UserPage()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users
+            .Include(x => x.Declarations)
+            .ThenInclude(x => x.Employee)
+            .ThenInclude(x => x.Msp)
+            .Include(x => x.AppointmentsU)
+            .FirstOrDefault(x => x.Id == userID);
+            UserPageViewModel model = new UserPageViewModel()
+            {
+                User = user
+            };
+
+            return View(model);
+        }
 
     [Authorize(Roles = "owner")]
     public IActionResult OwnerPage()
@@ -191,12 +221,6 @@ namespace MIS.Controllers
         return Content("ERROR CODE:500");
       }
     }
-
-    // Appointment;
-
-
-
-
 
     public async Task<IActionResult> CreateMsp(Msps msp)
     {

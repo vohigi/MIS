@@ -75,6 +75,10 @@ nav {
 .nav-text-span {
   display: inline-block;
   vertical-align: middle;
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  color: #f1f1f1;
 }
 
 .fas {
@@ -367,13 +371,6 @@ main {
   color: #3bad11;
 }
 
-.declaration-reg:hover {
-  border-top-right-radius: 30%;
-}
-
-.med-reg:hover {
-  border-top-left-radius: 30%;
-}
 .top-input {
   width: 100%;
   transition: none;
@@ -650,6 +647,22 @@ th:last-child {
   padding-right: 60px;
   background-color: #f1f1f1;
   z-index: 2;
+}
+.user-text {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #399f14;
+  padding: 0.4rem;
+  color: #f1f1f1;
+  border-radius: 20px;
+  margin-top: 0.3rem;
+}
+h3 {
+  text-align: center;
+}
+.table-top-width {
+  width: 100%;
 }
 @media only screen and (max-width: 1110px) {
   h2 {
