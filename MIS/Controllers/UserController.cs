@@ -57,7 +57,18 @@ namespace MIS.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email };
+            EditUserViewModel model = new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Gender = user.Gender,
+                TaxId = user.TaxId,
+                BirthDate = user.BirthDate
+            };
             return View(model);
         }
 
@@ -71,6 +82,13 @@ namespace MIS.Controllers
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
+                    user.PhoneNumber = model.PhoneNumber;
+                    user.FirstName = model.FirstName;
+                    user.MiddleName = model.MiddleName;
+                    user.LastName = model.LastName;
+                    user.TaxId = model.TaxId;
+                    user.Gender = model.Gender;
+                    user.BirthDate = model.BirthDate;
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
