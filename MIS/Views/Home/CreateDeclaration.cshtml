@@ -1,0 +1,100 @@
+﻿@model MIS.Models.User;
+@{
+    ViewData["Title"] = "CreateDeclaration";
+}
+
+<main>
+      <h2>Declaration</h2>
+      <div class="form-container register-container column">
+        <form id="create-dec-form" class="column" method="post" asp-controller="Home" asp-action="CreateDeclaration">
+          <div id="error"></div>
+          @Html.HiddenFor(a => a.Id, new { @Name = "EmployeeId" });
+          <input id="date" name="CreateDate" type="hidden" value="">
+          <div class="row">
+            <div class="input-group column">
+              <label for="first-name" class="register-label pointer"
+                >Ім'я:<span class="redstar">*</span></label>
+              <input
+                type="text"
+                name="FirstName"
+                id="first-name"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+            <div class="input-group column">
+              <label for="middle-name" class="register-label pointer"
+                >По-батькові:<span class="redstar">*</span></label
+              >
+              <input
+                type="text"
+                name="MiddleName"
+                id="middle-name"
+                class="register-input corners line-height-fix"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-group column">
+              <label for="second-name" class="register-label pointer"
+                >Прізвище:<span class="redstar">*</span></label
+              >
+              <input
+                type="text"
+                name="LastName"
+                id="second-name"
+                class="register-input corners line-height-fix top-input"
+              />
+            </div>
+          </div>
+            <div class="row">
+                <div class="input-group column">
+                    <label for="gender" class="register-label">Стать:<span class="redstar">*</span></label>
+                    <select name="Gender"
+                        id="gender"
+                        class="register-input corners pointer line-height-fix">
+                        <option value="not-chosen" disabled selected>Не вибрано</option>
+                        <option value="male" class="pointer">Чоловіча</option>
+                        <option value="female" class="pointer">Жіноча</option>
+                    </select>
+                </div>
+    
+                <div class="input-group column">
+                    <label for="adress" class="register-label pointer">Адреса:<span class="redstar">*</span></label>
+                    <input type="text"
+                        name="Address"
+                        id="adress"
+                        class="register-input corners line-height-fix" />
+                </div>
+            </div>
+                <div class="row">
+                    <!-- <div class="input-group column">
+                        <label for="ident-code" class="register-label pointer">Ідентифікаційний код<span class="redstar">*</span></label>
+                        <input type="text"
+                            name="ident-code"
+                            id="ident-code"
+                            class="register-input corners line-height-fix" />
+                    </div> -->
+                    <div class="input-group column">
+                        <label for="date-of-birth" class="register-label pointer">Дата народження<span class="redstar">*</span></label>
+                        <input type="date"
+                            name="BirthDate"
+                            id="date-of-birth"
+                            class="register-input corners pointer line-height-fix"
+                            min="1900-01-01"
+                            value="" />
+                    </div>
+                    <div class="input-group button-container  column">
+                        <button type="submit"
+                                id="register-btn"
+                                class="register-button corners line-height-fix">
+                            Створити декларацію
+                        </button>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    
+                </div> -->
+        </form>
+      </div>
+      <script src="./js/registerDeclaration.js"></script>
+    </main>
