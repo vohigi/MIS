@@ -1,6 +1,6 @@
 @model MIS.ViewModels.EditUserViewModel;
 @{
-    ViewBag.Title = "Редактирование пользователя";
+    <!-- ViewBag.Title = "Редактирование пользователя"; -->
 }
 <main>
 <form asp-action="Edit" asp-controller="Users">
@@ -10,7 +10,43 @@
     </div>
     <div class="form-group">
         <label asp-for="Email" class="control-label">Email</label>
-        <input type="text" asp-for="Email" class="form-control" />
+        <input type="text" asp-for="Email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="control-label">PhoneNumber</label>
+        <input type="tel" asp-for="PhoneNumber" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label">FirstName</label>
+        <input type="text" asp-for="FirstName" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="MiddleName" class="control-label">MiddleName</label>
+        <input type="text" asp-for="MiddleName" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label">LastName</label>
+        <input type="text" asp-for="LastName" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="TaxId" class="control-label">TaxId</label>
+        <input type="text" asp-for="TaxId" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender" class="control-label">Gender</label>
+        <select asp-for="Gender"
+                class="form-control">
+            <option value="not-chosen" disabled selected>Не вибрано</option>
+            <option value="male" class="pointer">Чоловіча</option>
+            <option value="female" class="pointer">Жіноча</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="BirthDate" class="register-label pointer">Дата народження<span class="redstar">*</span></label>
+        <input type="date"
+                asp-for="BirthDate"
+                min="1900-01-01"
+                value="" />
     </div>
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-default" />

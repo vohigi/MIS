@@ -63,13 +63,17 @@
     } else{
     <div class="msp-info">
         <h2 id="msp-name">
+            @Model.Owner.Msp.Name
         </h2>
         <div class="msp-statistics">
             <div class="msp-box corners">
                 <span class="msp-box-text">
                     Кількість декларацій, зареєстрованих у медичному закладі:
                 </span>
-                <span class="msp-span">0</span>
+                <span class="msp-span">
+
+                    
+                </span>
             </div>
             <div class="msp-box corners">
                 <span class="msp-box-text">Середній приріст декларацій за день:</span>
@@ -78,7 +82,7 @@
             <div class="msp-box corners">
                 <span class="msp-box-text">Кількість працівників: </span>
                 <span class="msp-span">
-                    @Model.UserList.Where(x => x.MspId == Model.Owner.MspId).Count();
+                    @Model.UserList.Where(x => x.MspId == Model.Owner.MspId).Count()
                 </span>
             </div>
         </div>
@@ -96,9 +100,7 @@
                 </thead>
                 <tbody id="doctor-msp-table-body">
                     @foreach(var item in Model.UserList){
-                        if(item.MspId == Model.Owner.MspId){
-
-                        
+                        if(@item.MspId == Model.Owner.MspId){
                         <tr>
                             <td>@item.LastName</td>
                             <td>@item.FirstName</td>
@@ -108,7 +110,11 @@
                             <td>@item.TaxId</td>
                             <td>@item.BirthDate</td>
                             <td>
-                                <a href="" class="table-links">Звільнити</a>
+                                <form asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="table-links">
+                                        Удалить
+                                    </button>
+                                </form>
                             </td>
                             <td>
                                 <a href="" class="table-links">Змінити</a>

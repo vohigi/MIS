@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using MIS.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace MIS.Controllers
 {
@@ -37,7 +38,8 @@ namespace MIS.Controllers
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
             var userID = _userManager.GetUserId(currentUser);
-            var user = _context.Users.FirstOrDefault(x => x.Id == userID);
+            var user = _context.Users.Include(x => x.Msp).Include(x => x.Declarations).FirstOrDefault(x => x.Id == userID);
+
             var mspId = user.MspId;
             if (user == null)
             {
@@ -70,6 +72,17 @@ namespace MIS.Controllers
             return RedirectToAction("OwnerPage");
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Delete(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+                IdentityResult result = await _userManager.DeleteAsync(user);
+            }
+            return RedirectToAction("OwnerPage");
+        }
+
         public async Task<IActionResult> CreateDoctor(OwnerPageViewModel model)
         {
             System.Security.Claims.ClaimsPrincipal currentUser = this.User;
@@ -77,9 +90,6 @@ namespace MIS.Controllers
             var user = _context.Users.FirstOrDefault(x => x.Id == userID);
             var mspID = user.MspId;
 
-
-            // user.PhoneNumber = model.PhoneNumber;
-            // user.UserName = model.Email;
             User newUser = new User();
 
             newUser.Email = model.Email;

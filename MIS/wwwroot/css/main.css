@@ -608,6 +608,7 @@ th:last-child {
 }
 #msp-name {
   text-align: center;
+  text-decoration: none;
 }
 .doctor-msp {
   display: flex;

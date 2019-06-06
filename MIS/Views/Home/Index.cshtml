@@ -10,7 +10,7 @@
 <main>
     <section class="login-system">
         @if(User.IsInRole("owner")){
-            <a href="./Home/OwnerPage" class="a-link login-onhover">Кабінет головного лікаря</a>
+            <a href="Home/OwnerPage" class="a-link login-onhover">Кабінет головного лікаря</a>
         }
         
         @if(User.IsInRole("user")){
@@ -19,10 +19,10 @@
             <a href="Users/ChooseDoctor" class="a-link declaration-reg">Зареєструвати декларацію</a>
         </div>
         }
+        @if(User.IsInRole("admin")){
+            <a href="User" class="a-link login-onhover">Адміністрування</a>
+        }
        
-        
-
-        
     </section>
     <section class="news-list">
         <div class="news-section">

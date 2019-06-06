@@ -15,9 +15,9 @@ namespace MIS.ViewModels
         public virtual string Gender { get; set; }
         public virtual System.DateTime BirthDate { get; set; }
         public virtual Msps Msp { get; set; }
-
         public virtual string UserName { get; set; }
         public virtual string PhoneNumber { get; set; }
+        public List<Declarations> Declarations { get; set; }
         public List<User> UserList { get; set; }
     }
 }
