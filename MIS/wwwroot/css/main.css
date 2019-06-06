@@ -73,12 +73,13 @@ nav {
 }
 
 .nav-text-span {
+  cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   border: none;
   background: none;
   font-size: 1.3rem;
-  color: #f1f1f1;
+  color: inherit;
 }
 
 .fas {
