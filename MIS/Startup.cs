@@ -32,8 +32,8 @@ namespace MIS
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-          // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-          options.CheckConsentNeeded = context => true;
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<ApplicationDbContext>(
@@ -44,8 +44,8 @@ namespace MIS
             //           ServiceLifetime.Scoped);
             services.AddIdentity<User, IdentityRole>(options =>
               {
-            // Configure identity options here.
-            options.Password.RequireDigit = true;
+                  // Configure identity options here.
+                  options.Password.RequireDigit = true;
                   options.Password.RequiredLength = 8;
                   options.Password.RequireLowercase = true;
                   options.Password.RequireNonAlphanumeric = false;
@@ -55,8 +55,8 @@ namespace MIS
                       .AddEntityFrameworkStores<ApplicationDbContext>();
             services.ConfigureApplicationCookie(options =>
           {
-        // Cookie settings
-        options.Cookie.HttpOnly = true;
+              // Cookie settings
+              options.Cookie.HttpOnly = true;
               options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
               options.LoginPath = "/Account/Login";
@@ -65,11 +65,11 @@ namespace MIS
           });
             services.AddMvc(config =>
           {
-        // using Microsoft.AspNetCore.Mvc.Authorization;
-        // using Microsoft.AspNetCore.Authorization;
-        var policy = new AuthorizationPolicyBuilder()
-                         .RequireAuthenticatedUser()
-                         .Build();
+              // using Microsoft.AspNetCore.Mvc.Authorization;
+              // using Microsoft.AspNetCore.Authorization;
+              var policy = new AuthorizationPolicyBuilder()
+                               .RequireAuthenticatedUser()
+                               .Build();
               config.Filters.Add(new AuthorizeFilter(policy));
           }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

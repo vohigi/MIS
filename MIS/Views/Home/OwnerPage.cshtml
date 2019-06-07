@@ -76,7 +76,7 @@
             </div>
             <div class="msp-box corners">
                 <span class="msp-box-text">Середній приріст декларацій за день:</span>
-                <span class="msp-span">0</span>
+                <span class="msp-span"></span>
             </div>
             <div class="msp-box corners">
                 <span class="msp-box-text">Кількість працівників: </span>
@@ -95,7 +95,7 @@
                 <th>Пошта</th>
                 <th>ІНН</th>
                 <th>Народження</th>
-                <th colspan="2">Дії</th>
+                <th>Дії</th>
                 </thead>
                 <tbody id="doctor-msp-table-body">
                     @foreach(var item in Model.UserList){
@@ -108,15 +108,12 @@
                             <td>@item.Email</td>
                             <td>@item.TaxId</td>
                             <td>@item.BirthDate</td>
-                            <td>
+                            <td class="link-hover">
                                 <form asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id" method="post">
                                     <button type="submit" class="table-links">
-                                        Удалить
+                                        Видалити
                                     </button>
                                 </form>
-                            </td>
-                            <td>
-                                <a href="" class="table-links">Змінити</a>
                             </td>
                         </tr>
                         }

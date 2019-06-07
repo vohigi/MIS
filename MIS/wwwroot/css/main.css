@@ -653,8 +653,21 @@ th:last-child {
   height: 2rem;
 }
 .table-links {
+  cursor: pointer;
   text-decoration: none;
   color: #4a9643;
+  background: none;
+  font-size: 1rem;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+.link-hover {
+  transition-duration: 0.4s;
+}
+.link-hover:hover {
+  background-color: #f4ff61;
+  color: #399f14;
 }
 .popup-msp-doctor {
   position: fixed;
@@ -686,7 +699,7 @@ h3 {
   width: 100%;
 }
 footer {
-  background-color: #399f14;
+  background-color: #607558;
   color: #f1f1f1;
   display: flex;
   margin-left: 60px;
