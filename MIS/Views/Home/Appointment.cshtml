@@ -22,10 +22,11 @@
                 <tr>
                     <th id="data1">@Model.Appointments[0].DateTime.Date.ToString("yyyy-MM-dd")</th>
                     <th id="data2">@Model.Appointments[4].DateTime.Date.ToString("yyyy-MM-dd")</th>
+                    
                 </tr>
             </thead>
             <tbody id="app-time-choose-body">
-                @for (int i = 0; i < Model.Appointments.Count/2; i++)
+                @for (int i = 0; i <4; i++)
                 {
                     <tr>
                         <td>
@@ -39,7 +40,7 @@
                             </form>
                         </td>
                         <td>
-                            <form>
+                            <form method="post" asp-controller="Home" asp-action="CreateAppointment">
                                 @Html.HiddenFor(Model => Model.Appointments[i+4].AppointmentId, new { @name = "AppointmentId" })
                                 @if(Model.Appointments[i+4].Status=="free"){
                                 <button type="submit" class="table-button">@Model.Appointments[i+4].DateTime.TimeOfDay</button>
@@ -48,6 +49,8 @@
                                 }
                             </form>        
                         </td>
+                               
+                        }
                     </tr>
                 }
             </tbody>
