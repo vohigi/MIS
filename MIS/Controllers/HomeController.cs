@@ -167,7 +167,8 @@ namespace MIS.Controllers
             }
             else if ((appointments.ToList()[0].DateTime - dt).TotalDays > 0)
             {
-                if ((appointments.ToList()[0].DateTime - dt).TotalDays == 1)
+                double DIFF = (appointments.ToList()[0].DateTime - dt).TotalDays;
+                if ((appointments.ToList()[0].DateTime - dt).TotalDays >= 1 && (appointments.ToList()[0].DateTime - dt).TotalDays < 2)
                 {
                     List<Appointments> appList = new List<Appointments>(){
                         new Appointments(user.Declarations.EmployeeId, dates[0].AddDays(1), "free"),
@@ -220,6 +221,24 @@ namespace MIS.Controllers
             {
                 return Content("ERROR CODE:500");
             }
+        }
+        [Authorize(Roles = "doctor")]
+        public async Task<IActionResult> DoctorPage()
+        {
+            System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+            var userID = _userManager.GetUserId(currentUser);
+            var user = _context.Users
+            .Include(x => x.Declarations)
+            .ThenInclude(x => x.Employee)
+            .ThenInclude(x => x.Msp)
+            .Include(x => x.AppointmentsU)
+            .FirstOrDefault(x => x.Id == userID);
+            UserPageViewModel model = new UserPageViewModel()
+            {
+                User = user
+            };
+
+            return View(model);
         }
 
         public async Task<IActionResult> CreateMsp(Msps msp)
