@@ -25,12 +25,12 @@
             <div class="register-links">
                 <a href="~/Home/UserPage" class="a-link">Сторінка клієнта</a>
             </div>
-                
-            
-            
         }
         @if(User.IsInRole("admin")){
             <a href="User" class="a-link">Адміністрування</a>
+        }
+        @if(User.IsInRole("doctor")){
+            <a href="~/Home/DoctorPage" class="a-link">Сторінка лікаря</a>
         }
        
     </section>

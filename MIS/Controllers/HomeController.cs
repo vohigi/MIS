@@ -171,6 +171,7 @@ namespace MIS.Controllers
         if ((appointments.ToList()[0].DateTime - dt).TotalDays <= 1)
         {
           List<Appointments> appList = new List<Appointments>(){
+
                         new Appointments(user.Declarations.EmployeeId, dates[0].AddDays(1), "free"),
                     new Appointments(user.Declarations.EmployeeId, dates[1].AddDays(1), "free"),
                     new Appointments(user.Declarations.EmployeeId, dates[2].AddDays(1), "free"),
@@ -222,6 +223,7 @@ namespace MIS.Controllers
         return Content("ERROR CODE:500");
       }
     }
+
 
     public async Task<IActionResult> CreateMsp(Msps msp)
     {

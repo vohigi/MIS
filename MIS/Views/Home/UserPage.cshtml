@@ -25,26 +25,22 @@
             Ваша адреса: @Model.User.Declarations.Address
         </p>
         <h3>Історія прийомів:</h3>
-        @if(Model.User.AppointmentsU == null){
-        <p class="user-text">Ви ще не записувались на прийом</p>
-        } else{
-         <div class="doctor-msp">
-            <table id="doctor-msp-table" class="table-top-width">
-                <thead id="doctor-msp-thead">
+        <table id="doctor-msp-table" class="table-top-width">
+            <thead id="doctor-msp-thead">
+                <th class="long-th">Номер декларації</th>
+                <th class="long-th">Ім'я пацієнта</th>
                 <th class="long-th">Дата</th>
                 <th class="long-th">Статус</th>
-                </thead>
-                <tbody id="doctor-msp-table-body">
+            </thead>
+            <tbody id="doctor-msp-table-body">
             @foreach(var item in Model.User.AppointmentsU){
                 <tr>
                     <td>@item.DateTime</td>
                     <td>@item.Status</td>
                 </tr>                
             }
-                </tbody>
-            </table>
-            </div>
-        }
+            </tbody>
+        </table>
     }
     
     

@@ -692,6 +692,9 @@ th:last-child {
   border-radius: 20px;
   margin-top: 0.3rem;
 }
+.doctor-page-info {
+  margin-left: 0.3rem;
+}
 h3 {
   text-align: center;
 }
