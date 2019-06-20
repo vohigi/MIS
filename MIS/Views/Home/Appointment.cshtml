@@ -22,7 +22,8 @@
                 <tr>
                     <th id="data1">@Model.Appointments[0].DateTime.Date.ToString("yyyy-MM-dd")</th>
                     <th id="data2">@Model.Appointments[4].DateTime.Date.ToString("yyyy-MM-dd")</th>
-                    
+                    @if(Model.Appointments.Count>8){
+                    <th id="data3">@Model.Appointments[8].DateTime.Date.ToString("yyyy-MM-dd")</th>}
                 </tr>
             </thead>
             <tbody id="app-time-choose-body">
@@ -49,7 +50,17 @@
                                 }
                             </form>        
                         </td>
-                               
+                        @if(Model.Appointments.Count>8){
+                               <td>
+                            <form method="post" asp-controller="Home" asp-action="CreateAppointment">
+                                @Html.HiddenFor(Model => Model.Appointments[i+8].AppointmentId, new { @name = "AppointmentId" })
+                                @if(Model.Appointments[i+8].Status=="free"){
+                                <button type="submit" class="table-button">@Model.Appointments[i+8].DateTime.TimeOfDay</button>
+                                }else{
+                                    <button type="submit" class="table-button" disabled>@Model.Appointments[i+8].DateTime.TimeOfDay</button>
+                                }
+                            </form>        
+                        </td>
                         }
                     </tr>
                 }
