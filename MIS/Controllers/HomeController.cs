@@ -60,7 +60,26 @@ namespace MIS.Controllers
 
       return View(model);
     }
+    [Authorize(Roles = "doctor")]
+    public IActionResult DoctorPage()
+    {
+      System.Security.Claims.ClaimsPrincipal currentUser = this.User;
+      var userID = _userManager.GetUserId(currentUser);
+      var user = _context.Users
+      .Include(x => x.DeclarationsE)
+      //   .ThenInclude(x => x.Employee)
+      //   .ThenInclude(x => x.Msp)
+      .Include(x => x.AppointmentsE)
+      //.Where(x => x.AppointmentsE.All(t => t.Status != "free"))
+      .ThenInclude(x => x.User).ThenInclude(x => x.Declarations)
+      .FirstOrDefault(x => x.Id == userID);
+      UserPageViewModel model = new UserPageViewModel()
+      {
+        User = user
+      };
 
+      return View(model);
+    }
     [Authorize(Roles = "owner")]
     public IActionResult OwnerPage()
     {
@@ -202,6 +221,23 @@ namespace MIS.Controllers
             .OrderBy(x => x.DateTime);
       model.Appointments = appointmentsCurrent.ToList();
       return View(model);
+    }
+    [Authorize(Roles = "doctor")]
+    [HttpPost]
+    public async Task<IActionResult> SubmitAppointment(int AppointmentId)
+    {
+      var appointment = _context.Appointments.FirstOrDefault(item => item.AppointmentId == AppointmentId);
+      if (appointment.Status == "booked")
+      {
+        appointment.Status = "finished";
+        _context.Appointments.Update(appointment);
+        await _context.SaveChangesAsync();
+        return RedirectToAction("DoctorPage");
+      }
+      else
+      {
+        return Content("ERROR CODE:500");
+      }
     }
     [Authorize(Roles = "user")]
     [HttpPost]

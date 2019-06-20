@@ -20,11 +20,22 @@
                 <th class="long-th">Статус</th>
             </thead>
             <tbody id="doctor-msp-table-body">
-            @foreach(var item in Model.User.AppointmentsU){
+            @foreach(var item in Model.User.AppointmentsE){
+                @if(item.Status!="free"){
                 <tr>
+                    <td>@item.User.Declarations.DeclarationId</td>
+                    <td>@item.User.Declarations.LastName @item.User.Declarations.FirstName</td>
                     <td>@item.DateTime</td>
-                    <td>@item.Status</td>
-                </tr>                
+                    <td><form method="post" asp-controller="Home" asp-action="SubmitAppointment">
+                                @Html.HiddenFor(Model => item.AppointmentId, new { @name = "AppointmentId" })
+                                @if(item.Status=="booked"){
+                                <button type="submit" class="table-button">Завершити</button>
+                                }else{
+                                    @item.Status
+                                }
+                            </form></td>
+                </tr> 
+                }               
             }
             </tbody>
         </table>
@@ -32,3 +43,4 @@
 
     </div>
 </main>
+<script src="~/js/doctorpage.js"></script>
